@@ -1,0 +1,44 @@
+DATABASE:
+ host: 121.41.33.110
+ name: river-test
+ user: root
+ pwd: YUtangyuyin12#$
+ port: 3306
+ timeout: 60
+ maxconns: 100
+ idleconns: 30
+
+REDIS:
+ host: 121.196.17.238
+ port: 30002
+ timeout: 60
+ pwd: Nzg@nzg314159%#@!*&
+ maxconns: 100
+ idleconns: 30
+
+MQTT:
+ host: 121.41.33.110
+ port: 1883
+ clientid: red_rain_ni
+ user:
+ pwd:
+
+LOG:
+ path: config/logs/
+ maxday: 5
+
+SYSCONTENT:
+ sendredrain: '<img src="https://soundriver.oss-cn-hangzhou.aliyuncs.com/custom/bell.png" /><font color=#FFCB00> 系统:</font> <font color=#FF3F67>%s</font> <font color=#FFFFFF>发起了红包雨,大家快来抢啊!</font>'
+ noticeredrain:  '<img src="https://soundriver.oss-cn-hangzhou.aliyuncs.com/custom/bell.png" /><font color=#FFCB00> 系统:</font> <font color=#FFFFFF>在</font><font color=#FF3F67>%s</font><font color=#FFFFFF>发起的红包雨中，他们是手速和运气的结合</font><br>'
+ noticeuser: "%s<font color=#FFFFFF>恭喜:</font><font color=#FF3F67> %s </font><font color=#FFFFFF>抢到了</font> <font color=#FFCB00>%d钻石</font><br>"
+
+CONFIG_REFRESH_DELAY: 10
+
+RED_RAIN_WAIT_TIME: 30
+HTTP_PORT: 12000
+
+USERDB:
+ tokenhost: http://dev.rna.yutangwl.com/service/token/info
+ createredhost: http://dev.rna.yutangwl.com/service/redpack/create
+ addusermoneyhost: http://dev.rna.yutangwl.com/service/redpack/settlement
+ redrainmessage: http://dev.rna.yutangwl.com/service/redpack/broad

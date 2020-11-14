@@ -1,0 +1,39 @@
+DATABASE:
+  host: 121.41.33.110
+  name: river-test
+  user: root
+  pwd: YUtangyuyin12#$
+  port: 3306
+  timeout: 60
+  maxconns: 100
+  idleconns: 30
+
+REDIS:
+  host: 121.196.17.238
+  port: 30002
+  timeout: 60
+  pwd: Nzg@nzg314159%#@!*&
+  maxconns: 100
+  idleconns: 30
+
+MQTT:
+  host: 121.41.33.110
+  port: 1883
+  clientid: red_rain_ni
+  user:
+  pwd:
+
+LOG:
+  path: red-rain/logs/
+  maxday: 5
+
+CONFIG_REFRESH_DELAY: 10
+
+RED_RAIN_WAIT_TIME: 30
+HTTP_PORT: 12000
+
+USERDB:
+  tokenhost: http://dev.rna.yutangwl.com/service/token/info
+  createredhost: http://dev.rna.yutangwl.com/service/redpack/create
+  addusermoneyhost: http://dev.rna.yutangwl.com/service/redpack/settlement
+  redrainmessage: http://dev.rna.yutangwl.com/service/redpack/broad
