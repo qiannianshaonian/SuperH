@@ -1,7 +1,7 @@
 module SuperH
 
 go 1.15
-replace gorm.io/gorm => github.com/go-gorm/gorm v1.9.19
+replace gorm.io/gorm => github.com/go-gorm/gorm v1.20.7
 
 require (
 	github.com/go-ini/ini v1.60.2
@@ -16,5 +16,7 @@ require (
 	golang.org/x/net v0.0.0-20200822124328-c89045814202 // indirect
 	gopkg.in/ini.v1 v1.60.2 // indirect
 	gorm.io/driver/mysql v1.0.0
-	gorm.io/gorm v1.9.19
+	gorm.io/gorm v1.20.7
+	github.com/eclipse/paho.mqtt.golang v1.2.0
+
 )
