@@ -5,7 +5,7 @@ type AuthReq struct {
 	UserPass string `json:"user_pass"`
 }
 
-type AuthRep struct {
+type AuthRsp struct {
 	Status *RspStatus `json:"status"`
 	Token  string     `json:"token"`
 }

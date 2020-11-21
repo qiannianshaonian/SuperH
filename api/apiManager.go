@@ -7,5 +7,5 @@ func InitApi() {
 }
 
 func setRoomProto() {
-	proto.SetSubInfo("login", "hanz/login/auth", "superhz/login/auth/", GetRoomListApi)
+	proto.SetSubInfo("login", "hanz/login/auth", "superhz/login/auth/", AuthApi)
 }

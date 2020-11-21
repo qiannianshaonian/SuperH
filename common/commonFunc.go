@@ -1,6 +1,14 @@
 package common
 
 import (
+	"SuperH/proto"
+	crand "crypto/rand"
+	"crypto/rsa"
+	"crypto/x509"
+	"encoding/base64"
+	"encoding/json"
+	"encoding/pem"
+	"errors"
 	"github.com/sirupsen/logrus"
 	"math/rand"
 	"time"
@@ -103,4 +111,78 @@ func ReadWithSelectStr(ch chan string) string {
 	default:
 		return ""
 	}
+}
+
+func GetToken(userId int64, userName, passWord string, publicKey string) (string, error) {
+	info := &proto.TokenInfo{
+		UserId:   userId,
+		UserName: userName,
+		PassWord: passWord,
+	}
+	bytes, err := json.Marshal(info)
+	if err != nil {
+		logrus.Errorf("json marshall error %v", err)
+		return "", err
+	}
+
+	token, err := RsaEncrypt(bytes, []byte(publicKey))
+	if err != nil {
+		return "", err
+	}
+	return base64.StdEncoding.EncodeToString(token), nil
+}
+
+// DecryptToken 对加密的token进行解码
+func DecryptToken(token string, privateKey string) (*proto.TokenInfo, error) {
+	bytes, err := base64.StdEncoding.DecodeString(token)
+	if err != nil {
+		logrus.Errorf("base decode error %v", err)
+		return nil, err
+	}
+	result, err := RsaDecrypt(bytes, []byte(privateKey))
+	if err != nil {
+		logrus.Errorf("rsa decode error %v", err)
+		return nil, err
+	}
+
+	info := &proto.TokenInfo{}
+	err = json.Unmarshal(result, &info)
+	if err != nil {
+		logrus.Errorf("json unmashall error %v", err)
+		return nil, err
+	}
+	return info, nil
+}
+
+func RsaEncrypt(origData []byte, publicKey []byte) ([]byte, error) {
+	//解密pem格式的公钥
+	block, _ := pem.Decode(publicKey)
+	if block == nil {
+		return nil, nil
+	}
+	// 解析公钥
+	pubInterface, err := x509.ParsePKIXPublicKey(block.Bytes)
+	if err != nil {
+		return nil, err
+	}
+	// 类型断言
+	pub := pubInterface.(*rsa.PublicKey)
+	//加密
+	return rsa.EncryptPKCS1v15(crand.Reader, pub, origData)
+}
+
+// 解密
+func RsaDecrypt(ciphertext []byte, privateKey []byte) ([]byte, error) {
+	//解密
+	block, _ := pem.Decode(privateKey)
+	if block == nil {
+		return nil, errors.New("private key error!")
+	}
+	//解析PKCS1格式的私钥
+	priv, err := x509.ParsePKCS1PrivateKey(block.Bytes)
+	if err != nil {
+		return nil, err
+	}
+	// 解密
+	return rsa.DecryptPKCS1v15(crand.Reader, priv, ciphertext)
 }

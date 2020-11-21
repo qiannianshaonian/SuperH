@@ -47,3 +47,24 @@ func GetRspStatus(rspStatus *RspStatus, code RspCode) {
 	}
 	rspStatus.Msg = ""
 }
+
+const (
+	Rsp_code_success RspCode = 0
+	Rsp_code_error   RspCode = 1
+)
+
+const (
+	Rsp_code_success_msg string = "成功"
+	Rsp_code_error_msg   string = "服务暂不提供"
+)
+
+func InitRspStatusMap() {
+	RspStatusMap[Rsp_code_success] = Rsp_code_success_msg
+	RspStatusMap[Rsp_code_error] = Rsp_code_error_msg
+}
+
+type TokenInfo struct {
+	UserName string `json:"user_name"`
+	UserId   int64  `json:"user_id"`
+	PassWord string `json:"pass_word"`
+}
